@@ -99,7 +99,7 @@ const createsCardHTMLThroughMap = () => {
               <div class="info">
                 <h3 class="title">${card.name}</h3>
                 <p class="description">${card.description}</p>
-                <p class="price">PKR: <span id="price">${card.price}<span></p>
+                <p class="price">PKR: <span id="price">${card.price}<span>  </p>
                 <p class="stock">Stock: ${card.stock}</p>
                 <p class="likes">Likes: ${card.likes}</p>
                 <p class="reviews">Reviews: ${card.reviews}</p>    
@@ -116,15 +116,22 @@ createsCardHTMLThroughMap()
 
 
 
-
-let couponCode = ["WMA"];
+let couponCode = ["WMA BATCH (18)"];
 let addBtn = document.getElementsByClassName("addBtn")
-
+let userInput = "WMA BATCH (18)";
 for (let i = 0; i < addBtn.length; i++) {
-  addBtn[i].addEventListener("click", function () {
-    let numberr =  this.parentElement.querySelector("#price").textContent;
-    let price = parseFloat(numberr)
-    console.log(price)
+    addBtn[i].addEventListener("click", function () {
+    let priceValue =  this.parentElement.querySelector("#price");
+    let newSpan = document.createElement("span")
+    addBtn[i].parentElement.querySelector(".price").appendChild(newSpan)
+
+    for(let j = 0; j < couponCode.length; j++){
+      if(userInput == couponCode[j]){
+        let discountPrice = priceValue.textContent - (priceValue.textContent * (10 / 100));
+        priceValue.classList.add("text-style")
+        newSpan.innerText = discountPrice.toFixed();
+      }
+    }
   })
 }
 
