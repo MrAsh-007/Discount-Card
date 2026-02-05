@@ -117,6 +117,10 @@ createsCardHTMLThroughMap()
 
 let userInput = document.getElementById("userInput");
 
+let overlay = document.getElementById("overlay");
+
+let aHDWindow = document.getElementById("aHDWindow")
+
 let newWindow = document.getElementById("newWindow");
 
 let hint = document.getElementById("hint");
@@ -124,8 +128,6 @@ let hint = document.getElementById("hint");
 let couponCode = ["WMA BATCH (18)"];
 
 let newSpan = document.createElement("span");
-
-
 
 let submitBtn = document.getElementById("submit");
 
@@ -140,47 +142,74 @@ let discountPrice = 0;
 
 for (let i = 0; i < addBtn.length; i++) {
 
-  addBtn[i].addEventListener("click", windowOpen);
   
   addBtn[i].addEventListener("click", function () {
-    priceValueElement = this.parentElement.querySelector("#price");
-    newSpan = document.createElement("span");
-    addBtn[i].parentElement.querySelector(".price").appendChild(newSpan)
     
+    let priceChildrens = this.parentElement.querySelector(".price").children;
 
-  })
+    if(priceChildrens.length > 1 && priceChildrens[1].textContent.trim() !== ""){
+
+      alreadyHaveDiscountWindowOpen();
+
+    }else{
+      windowOpen();
+      priceValueElement = this.parentElement.querySelector("#price");
+      newSpan = document.createElement("span");
+      addBtn[i].parentElement.querySelector(".price").appendChild(newSpan);
+    }
+    });
 }
 
-function codeValidation () {
+function codeValidation() {
   let inputValue = userInput.value.trim();
 
-    for (let i = 0; i < couponCode.length; i++) {
+  for (let i = 0; i < couponCode.length; i++) {
 
-      if (inputValue == couponCode[i]) {
+    if (inputValue == couponCode[i]) {
 
-        priceValueElement.className = "text-style";
+      priceValueElement.classList.add("text-style");
 
-        let priceValue = parseFloat(priceValueElement.textContent);
+      let priceValue = parseFloat(priceValueElement.textContent);
 
-        discountPrice = priceValue - (priceValue * (10 / 100));
-        
-        newSpan.innerText = discountPrice.toFixed();
+      discountPrice = priceValue - (priceValue * (10 / 100));
 
-        windowClosed();
-        
-      }else{
-        
-        hint.className = "hint"
+      newSpan.innerText = discountPrice.toFixed();
 
-      }
+      windowClosed();
+
+    } else {
+
+      hint.className = "hint"
+
     }
+  }
 }
+
 submitBtn.addEventListener("click", codeValidation);
 
-function windowOpen () {
+overlay.addEventListener("click", windowClosed);
+
+overlay.addEventListener("click", alreadyHaveDiscountWindowClosed);
+
+
+function windowOpen() {
   newWindow.classList.add("open");
+  overlay.classList.add("show");
 }
 
-function windowClosed () {
+function windowClosed() {
   newWindow.classList.remove("open");
+  overlay.classList.remove("show");
+}
+
+
+
+function alreadyHaveDiscountWindowOpen() {
+  aHDWindow.classList.add("open");
+  overlay.classList.add("show");
+}
+
+function alreadyHaveDiscountWindowClosed() {
+  aHDWindow.classList.remove("open");
+  overlay.classList.remove("show");
 }
