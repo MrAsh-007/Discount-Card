@@ -4,6 +4,9 @@
     box-sizing: border-box;
     font-family: Helvetica;
 }
+body{
+    background: rgb(0, 102, 150);
+}
 
 .container {
     height: 170vh;
@@ -12,7 +15,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: rgb(0, 102, 150);
+
 }
 
 .heading {
@@ -39,7 +42,11 @@
 }
 
 .products {
-    width: 280px;
+    height: 45%;
+    width: 20%;
+    /* max-height: 30px; */
+    min-width: 180px;
+    max-width: 280px;
     background: #ffffff;
     border-top-right-radius: 28px;
     border-bottom-left-radius: 28px;
@@ -68,7 +75,7 @@
 
 
 .info {
-    padding: 15px;
+    padding: 10px 15px 25px 15px;
 }
 
 .title {
@@ -125,3 +132,6 @@
     text-decoration: line-through;
     color: #444444b4;
 }
+
+
+

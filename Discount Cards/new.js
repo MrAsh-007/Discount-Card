@@ -117,16 +117,20 @@ createsCardHTMLThroughMap()
 
 
 let couponCode = ["WMA BATCH (18)"];
+
+let newSpan = document.createElement("span");
+
+
 let addBtn = document.getElementsByClassName("addBtn")
 let userInput = "WMA BATCH (18)";
 for (let i = 0; i < addBtn.length; i++) {
-    addBtn[i].addEventListener("click", function () {
-    let priceValue =  this.parentElement.querySelector("#price");
-    let newSpan = document.createElement("span")
+  addBtn[i].addEventListener("click", function () {
+    let priceValue = this.parentElement.querySelector("#price");
+
     addBtn[i].parentElement.querySelector(".price").appendChild(newSpan)
 
-    for(let j = 0; j < couponCode.length; j++){
-      if(userInput == couponCode[j]){
+    for (let j = 0; j < couponCode.length; j++) {
+      if (userInput == couponCode[j]) {
         let discountPrice = priceValue.textContent - (priceValue.textContent * (10 / 100));
         priceValue.classList.add("text-style")
         newSpan.innerText = discountPrice.toFixed();
