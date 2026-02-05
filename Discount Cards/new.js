@@ -115,35 +115,72 @@ const createsCardHTMLThroughMap = () => {
 createsCardHTMLThroughMap()
 
 
+let userInput = document.getElementById("userInput");
+
+let newWindow = document.getElementById("newWindow");
+
+let hint = document.getElementById("hint");
 
 let couponCode = ["WMA BATCH (18)"];
 
 let newSpan = document.createElement("span");
 
 
-let addBtn = document.getElementsByClassName("addBtn")
-let userInput = "WMA BATCH (18)";
+
+let submitBtn = document.getElementById("submit");
+
+let addBtn = document.getElementsByClassName("addBtn");
+
+let priceValueElement = 0;
+
+let discountPrice = 0;
+
+
+
+
 for (let i = 0; i < addBtn.length; i++) {
+
+  addBtn[i].addEventListener("click", windowOpen);
+  
   addBtn[i].addEventListener("click", function () {
-    let priceValue = this.parentElement.querySelector("#price");
-
+    priceValueElement = this.parentElement.querySelector("#price");
+    newSpan = document.createElement("span");
     addBtn[i].parentElement.querySelector(".price").appendChild(newSpan)
+    
 
-    for (let j = 0; j < couponCode.length; j++) {
-      if (userInput == couponCode[j]) {
-        let discountPrice = priceValue.textContent - (priceValue.textContent * (10 / 100));
-        priceValue.classList.add("text-style")
-        newSpan.innerText = discountPrice.toFixed();
-      }
-    }
   })
 }
 
+function codeValidation () {
+  let inputValue = userInput.value.trim();
 
+    for (let i = 0; i < couponCode.length; i++) {
 
+      if (inputValue == couponCode[i]) {
 
+        priceValueElement.className = "text-style";
 
+        let priceValue = parseFloat(priceValueElement.textContent);
 
+        discountPrice = priceValue - (priceValue * (10 / 100));
+        
+        newSpan.innerText = discountPrice.toFixed();
 
+        windowClosed();
+        
+      }else{
+        
+        hint.className = "hint"
 
+      }
+    }
+}
+submitBtn.addEventListener("click", codeValidation);
 
+function windowOpen () {
+  newWindow.classList.add("open");
+}
+
+function windowClosed () {
+  newWindow.classList.remove("open");
+}
